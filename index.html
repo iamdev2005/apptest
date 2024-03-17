@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="p5.js"></script>
+    <link rel="stylesheet" href="./fontawesome/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+<body>
+ <div id="menu">
+  <div class="container">
+    <div class="actionIcon" id="save">Save</i></div>
+    <div class="actionIcon" id="clearCanvas">Clear</i></div>
+    <button onclick="undo()">Undo</button>
+  </div>
+  <div class="container">
+    <div class="interactiveToolIcon" id="ellipse">E</div>
+    <div class="interactiveToolIcon" id="rectangle">R</div>
+    <div class="interactiveToolIcon" id="triangle">T</div>
+    <div class="interactiveToolIcon" id="line">L</div>
+    <div class="checkboxContainer"><input id="fillShape" type="checkbox"/>Fill</div>
+  </div>
+   <div class="container">
+    <div class="interactiveToolIcon" id="pen">pen</div>
+    <div class="interactiveToolIcon" id="eraser">Earse</i></div>
+    <div class="interactiveToolIcon" id="bucket">paint</div>
+   </div>
+   <div class="container">
+    <div class="actionIcon" id="changeColor">
+      Color
+    </div>
+    <div id="selectedColor"></div>
+   </div>
+   <div class="container">
+    <input id="lineWeight" type="range" min="1" max="100" value="1"/><span id="lineWeightLabel">Size</span>
+   </div>
+ </div>
+ <div id="canvasContainer"></div>
+ <input type="color" id="colorPicker" style="display: none;">
+
+
+ <div class="footer">
+  <button onclick="playAnimation()">Play</button>
+  <button onclick="stopAnimation()">Pause</button>
+  <div class="frame-info">
+    Frame: <span id="frameNumber">1</span> / <span id="totalFrames">1</span>
+  </div>
+  <button onclick="addFrame()">Add Frame</button>
+  <button onclick="nextFrame()">Next Frame</button>
+  <button onclick="preFrame()">Previous Frame</button>
+  OnionMode<input type="checkbox" id="myCheck" onclick="onionMode()">
+
+ </div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/ccapture.js/1.0.3/CCapture.min.js"></script>
+ <script src="main2.js"></script>
+ 
+
+
+</body>
+</html>
