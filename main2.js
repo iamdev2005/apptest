@@ -6,9 +6,7 @@ let layer0;
 let currentShape;
 let mode = "free";
 let backgroundColor = 300;
-let currentColor = 0;
-let drawingHistory = [];
-let redoHistory = [];
+let currentColor = 0;
 let lastCanvasState;
 let thisFrame;
 let frameList = [];
@@ -70,7 +68,6 @@ function touchStarted() {
 function touchEnded() {
     drawing = false;
     currentShape.finalize(clientX, clientY);
-    drawingHistory.push(lastCanvasState);
     lastCanvasState = null;
 }
 
@@ -265,26 +262,7 @@ function colorsMatch(c1, c2) {
 
 
 
-
-function undo() {
-  if (drawingHistory.length > 1) {
-      redoHistory.push(drawingHistory.pop());
-      redrawCanvas();
-      drawingHistory.pop()
-  }
-}
-
-
-function redrawCanvas() {
-  if (drawingHistory.length > 0) {
-      pg.clear();
-      pg.image(drawingHistory[drawingHistory.length - 1], 0, 0);
-  } else {
-      pg.clear();
-  }
-}
-
-
+
 
 
 
