@@ -1,19 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Responsive PWA</title>
-  <link rel="manifest" href="/manifest.json">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Double Countdown — 31 Dec 2025 & 31 Jan 2026</title>
+  <style>
+    :root{
+      color-scheme: dark;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    html,body{min-height:100vh;}
+    body{
+      margin:0;
+      background:#000;
+      color:#fff;
+      font-family:system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:20px;
+      box-sizing:border-box;
+      gap:40px;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:640px;
+    }
+
+    h1{
+      margin:0 0 10px 0;
+      font-size:14px;
+      font-weight:600;
+      letter-spacing:0.06em;
+      opacity:0.12;
+      color:#ffffff;
+    }
+
+    .seconds{
+      display:block;
+      font-size:20px;
+      font-weight:700;
+      color:#ffffff;
+      line-height:1;
+      letter-spacing:0.02em;
+      -webkit-text-size-adjust:100%;
+    }
+
+    @media (max-width:420px){
+      h1{font-size:12px}
+      .seconds{font-size:18px}
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to My PWA</h1>
+  <div class="wrap">
+    <h1>Edit</h1>
+    <div id="count1" class="seconds">—</div>
+  </div>
+
+  <div class="wrap">
+    <h1>PREP</h1>
+    <div id="count2" class="seconds">—</div>
+  </div>
+
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/service-worker.js").then(() => {
-        console.log("Service Worker registered");
-      });
+    // Precompute timestamps for performance
+    const target1 = new Date('2025-12-31T23:59:59.999');
+    const target2 = new Date('2026-01-31T23:59:59.999');
+    const target1Time = target1.getTime();
+    const target2Time = target2.getTime();
+
+    const el1 = document.getElementById('count1');
+    const el2 = document.getElementById('count2');
+
+    function updateCountdown(el, targetTime){
+      const now = Date.now();
+      let diffMs = targetTime - now;
+      if (diffMs <= 0) {
+        el.textContent = '0.000';
+        return false;
+      }
+      const secondsLeft = Math.floor(diffMs / 1000);
+      const millisecondsLeft = diffMs % 1000;
+      el.textContent = `${secondsLeft.toLocaleString()}.${millisecondsLeft.toString().padStart(3,'0')}`;
+      return true;
     }
+
+    function tick(){
+      const active1 = updateCountdown(el1, target1Time);
+      const active2 = updateCountdown(el2, target2Time);
+      if(!active1 && !active2) return;
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
   </script>
 </body>
 </html>
